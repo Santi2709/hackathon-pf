@@ -1,0 +1,1896 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hackathon PF Marketplace Payments 2026</title>
+  <style>
+    :root {
+      --yellow: #FFE600;
+      --yellow-dark: #E6CF00;
+      --dark: #1A1A2E;
+      --dark2: #16213E;
+      --gray: #F5F5F5;
+      --text: #333;
+      --text-muted: #666;
+      --white: #fff;
+      --radius: 12px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: var(--text);
+      background: var(--white);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      background: rgba(26, 26, 46, 0.95);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 40px;
+      border-bottom: 2px solid var(--yellow);
+    }
+
+    .nav-logo {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--yellow);
+      letter-spacing: 0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--yellow);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--dark) 0%, var(--dark2) 60%, #0f3460 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 24px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255, 230, 0, 0.08) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    /* ── HERO LOGO ── */
+    .hero-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+      animation: float 3.5s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-8px); }
+    }
+
+    .hero-logo svg {
+      filter: drop-shadow(0 0 18px rgba(255,230,0,0.35));
+    }
+
+    .hero-logo-labels {
+      display: flex;
+      gap: 10px;
+    }
+
+    .logo-pill {
+      background: rgba(255,230,0,0.12);
+      border: 1px solid rgba(255,230,0,0.35);
+      color: #FFE600;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 4px 14px;
+      border-radius: 20px;
+      text-transform: uppercase;
+    }
+
+    .logo-pill-ai {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,255,255,0.2);
+      color: #ccd;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--yellow);
+      color: var(--dark);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.15;
+      max-width: 800px;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 span {
+      color: var(--yellow);
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: #aab;
+      max-width: 560px;
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background: var(--yellow);
+      color: var(--dark);
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: var(--yellow-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      border: 2px solid rgba(255,230,0,0.4);
+      color: var(--yellow);
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--yellow);
+      transform: translateY(-2px);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      margin-top: 64px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--yellow);
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: #889;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 80px 24px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      background: var(--yellow);
+      color: var(--dark);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 800;
+      color: var(--dark);
+    }
+
+    .section-header p {
+      margin-top: 12px;
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    /* ── TIMELINE ── */
+    #cronograma {
+      background: var(--gray);
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--yellow), var(--yellow-dark));
+      transform: translateX(-50%);
+    }
+
+    .timeline-item {
+      display: flex;
+      justify-content: flex-end;
+      padding-right: calc(50% + 40px);
+      margin-bottom: 48px;
+      position: relative;
+    }
+
+    .timeline-item:nth-child(even) {
+      justify-content: flex-start;
+      padding-right: 0;
+      padding-left: calc(50% + 40px);
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 50%;
+      top: 20px;
+      transform: translateX(-50%);
+      width: 18px;
+      height: 18px;
+      background: var(--yellow);
+      border-radius: 50%;
+      border: 3px solid var(--gray);
+      box-shadow: 0 0 0 3px var(--yellow);
+      z-index: 1;
+    }
+
+    .timeline-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      max-width: 380px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      border-top: 3px solid var(--yellow);
+      position: relative;
+    }
+
+    .timeline-date {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--yellow-dark);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .timeline-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+
+    .timeline-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .timeline-time {
+      display: inline-block;
+      margin-top: 10px;
+      background: var(--yellow);
+      color: var(--dark);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    /* ── OBJETIVOS ── */
+    #objetivos {
+      background: var(--white);
+    }
+
+    .obj-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+    }
+
+    .obj-card {
+      background: var(--white);
+      border: 1.5px solid #eee;
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .obj-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+    }
+
+    .obj-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--yellow);
+    }
+
+    .obj-icon {
+      font-size: 2.4rem;
+      margin-bottom: 16px;
+    }
+
+    .obj-number {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 3rem;
+      font-weight: 900;
+      color: rgba(255,230,0,0.15);
+      line-height: 1;
+    }
+
+    .obj-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 12px;
+    }
+
+    .obj-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .obj-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 16px;
+    }
+
+    .obj-tag {
+      background: var(--gray);
+      color: var(--text);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    /* ── PRESENTACION ── */
+    #presentacion {
+      background: var(--gray);
+    }
+
+    .slides-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .slide-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    .slide-num {
+      width: 48px;
+      height: 48px;
+      background: var(--dark);
+      color: var(--yellow);
+      font-size: 1.3rem;
+      font-weight: 800;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+
+    .slide-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+
+    .slide-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ── EVALUACION ── */
+    #evaluacion {
+      background: var(--dark);
+    }
+
+    #evaluacion .section-header h2,
+    #evaluacion .section-header p {
+      color: var(--white);
+    }
+
+    #evaluacion .section-header p {
+      color: #889;
+    }
+
+    .eval-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .eval-card {
+      flex: 0 1 300px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      transition: transform 0.2s, border-color 0.2s;
+      position: relative;
+    }
+
+    .eval-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255,230,0,0.35);
+    }
+
+    .eval-card-header {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .eval-icon {
+      font-size: 1.8rem;
+      line-height: 1;
+    }
+
+    .eval-must {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(255,80,80,0.15);
+      border: 1px solid rgba(255,80,80,0.4);
+      color: #ff8080;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 2px 8px;
+      border-radius: 20px;
+      text-transform: uppercase;
+    }
+
+    .eval-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .eval-desc {
+      font-size: 0.85rem;
+      color: #889;
+      line-height: 1.65;
+    }
+
+    .eval-sublabel {
+      font-size: 0.72rem;
+      color: #667;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .eval-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .eval-list li {
+      font-size: 0.82rem;
+      color: #889;
+      line-height: 1.5;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .eval-list li::before {
+      content: counter(eval-item);
+      counter-increment: eval-item;
+      position: absolute;
+      left: 0;
+      color: var(--yellow);
+      font-weight: 700;
+      font-size: 0.72rem;
+    }
+
+    .eval-list {
+      counter-reset: eval-item;
+    }
+
+    /* ── COUNTDOWN ── */
+    .countdown-wrap {
+      margin-top: 48px;
+      text-align: center;
+    }
+
+    .countdown-label {
+      font-size: 0.75rem;
+      color: #889;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+
+    .countdown {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .countdown-unit {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,230,0,0.2);
+      border-radius: var(--radius);
+      padding: 18px 22px;
+      min-width: 88px;
+      text-align: center;
+    }
+
+    .countdown-number {
+      font-size: 2.6rem;
+      font-weight: 900;
+      color: var(--yellow);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .countdown-unit-label {
+      font-size: 0.7rem;
+      color: #889;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-top: 6px;
+    }
+
+    .countdown-done {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--yellow);
+    }
+
+    /* ── EQUIPOS ── */
+    #equipos {
+      background: var(--gray);
+    }
+
+    .teams-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 20px;
+    }
+
+    /* 2 filas de 4 cards → cada una ocupa 3 de 12 columnas */
+    .team-card {
+      grid-column: span 3;
+    }
+
+    /* ── FLIP CARD ── */
+    .team-card {
+      height: 230px;
+      cursor: pointer;
+      perspective: 1000px;
+    }
+
+    .card-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1);
+    }
+
+    .team-card.flipped .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card-front,
+    .card-back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 18px;
+    }
+
+    /* FRENTE */
+    .card-front {
+      background: var(--white);
+      border: 1.5px solid #e8e8e8;
+      border-bottom: 3px solid var(--yellow);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+      transition: box-shadow 0.2s;
+    }
+
+    .team-card:hover:not(.flipped) .card-front {
+      box-shadow: 0 8px 28px rgba(0,0,0,0.1);
+    }
+
+    .card-front-number {
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: rgba(255,230,0,0.25);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .card-front-name {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--dark);
+      text-align: center;
+    }
+
+    .card-front-hint {
+      margin-top: 12px;
+      font-size: 0.7rem;
+      color: #bbb;
+      letter-spacing: 0.5px;
+    }
+
+    /* REVERSO */
+    .card-back {
+      background: var(--dark);
+      transform: rotateY(180deg);
+      border: 1px solid rgba(255,230,0,0.2);
+      gap: 10px;
+    }
+
+    .card-back-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--yellow);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .team-members {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .members-top-row,
+    .members-bottom-row {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .member-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,230,0,0.12);
+      color: var(--yellow);
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid rgba(255,230,0,0.3);
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .member-name {
+      font-size: 0.65rem;
+      color: #aab;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .member-row {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+
+    /* ── FOTOS EQUIPO 1 ── */
+    .avatar-photo {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,230,0,0.5);
+      box-shadow: 0 0 0 1px rgba(255,230,0,0.2);
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    .avatar-guille  { background-image: url('guille_martinez.png'); background-position: center 15%; }
+    .avatar-fran    { background-image: url('fran_bordagaray.png'); background-position: center 10%; }
+    .avatar-juani   { background-image: url('juani_abal.png');      background-position: center top; }
+    .avatar-manu    { background-image: url('manu_salazar.png');    background-position: center 15%; }
+    .avatar-vale    { background-image: url('vale_mesa.png');       background-position: center 20%; }
+
+    /* ── FOTOS EQUIPO 2 ── */
+    .avatar-mati    { background-image: url('mati_denicola.png');  background-position: center 15%; }
+    .avatar-andrew  { background-image: url('andrew_james.png');   background-position: center 10%; }
+    .avatar-daniel  { background-image: url('daniel_teidi.png');   background-position: center 15%; }
+    .avatar-alen    { background-image: url('alen_jimenez.png');   background-position: center 10%; }
+    .avatar-maxi    { background-image: url('maxi_pan.png');       background-position: center 15%; }
+
+    /* ── FOTOS EQUIPO 3 ── */
+    .avatar-martin  { background-image: url('martin_baggio.png');  background-position: center 15%; }
+    .avatar-leti    { background-image: url('leti_vilarino.png');  background-position: center 15%; }
+    .avatar-fede    { background-image: url('fede_colombo.png');   background-position: center 10%; }
+    .avatar-tanque  { background-image: url('santi_silva.png');    background-position: center 15%; }
+    .avatar-sancho  { background-image: url('sancho.png');         background-position: center 20%; }
+
+    /* ── FOTOS EQUIPO 4 ── */
+    .avatar-ari     { background-image: url('ari_romero.png');      background-position: center 15%; }
+    .avatar-car     { background-image: url('car_espinola.png');    background-position: center 15%; }
+    .avatar-nachito { background-image: url('nachito_brusati.png'); background-position: center 15%; }
+    .avatar-mcant   { background-image: url('maxi_cantarell.png');  background-position: center 15%; }
+    .avatar-lu      { background-image: url('lu_miranda.png');      background-position: center 15%; }
+
+    /* ── FOTOS EQUIPO 5 ── */
+    .avatar-drivero  { background-image: url('diego_rivero.png');   background-position: center 15%; }
+    .avatar-dirigaray{ background-image: url('diego_irigaray.png'); background-position: center 10%; }
+    .avatar-esteban  { background-image: url('esteban_gu.png');     background-position: center 15%; }
+    .avatar-rossina  { background-image: url('rossina.png');        background-position: center 15%; }
+    .avatar-michu    { background-image: url('michu.png');          background-position: center 15%; }
+
+    /* ── FOTOS EQUIPO 6 ── */
+    .avatar-peter    { background-image: url('peter_zorko.png');    background-position: center 15%; }
+    .avatar-anna     { background-image: url('anna_sardinha.png');  background-position: center 20%; }
+    .avatar-tedoldi  { background-image: url('santi_tedoldi.png');  background-position: center 15%; }
+    .avatar-eri      { background-image: url('eri_zambrano.png');   background-position: center 15%; }
+    .avatar-feli     { background-image: url('feli_gonzalez.png');  background-position: center 15%; }
+
+    /* ── FOTOS EQUIPO 7 ── */
+    .avatar-isa      { background-image: url('isa_noya.png');       background-position: center 15%; }
+    .avatar-luki     { background-image: url('luki_pioli.png');     background-position: center 15%; }
+    .avatar-gonza    { background-image: url('gonza_sil.png');      background-position: center 15%; }
+    .avatar-bruno    { background-image: url('bruno_silva.png');    background-position: center 15%; }
+    .avatar-flor     { background-image: url('flor_gonnet.png');    background-position: center 15%; }
+
+    /* ── FOTOS EQUIPO 8 ── */
+    .avatar-agus     { background-image: url('agus_pons.png');      background-position: center 15%; }
+    .avatar-dani     { background-image: url('dani_carro.png');     background-position: center 20%; }
+    .avatar-rodri    { background-image: url('rodri_marquez.png');  background-position: center 15%; }
+    .avatar-flocurb  { background-image: url('flor_curbelo.png');   background-position: center 20%; }
+    .avatar-andy     { background-image: url('andy_santucci.png');  background-position: center 15%; }
+
+    /* ── YOU ARE HERE ── */
+    .timeline-dot.current-dot {
+      background: #2ecc71;
+      box-shadow: 0 0 0 3px var(--gray), 0 0 0 5px #2ecc71;
+    }
+
+    .timeline-dot.current-dot::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 40px;
+      height: 40px;
+      border: 2.5px solid #2ecc71;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      animation: pulse-ring 1.8s ease-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes pulse-ring {
+      0%   { transform: translate(-50%, -50%) scale(0.85); opacity: 0.9; }
+      100% { transform: translate(-50%, -50%) scale(2.6); opacity: 0; }
+    }
+
+    .you-are-here-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #e53935;
+      color: #fff;
+      font-size: 0.63rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+    }
+
+    /* ── SPONSORS EN TARJETA ── */
+    .card-sponsors {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    .sponsor-name {
+      font-size: 0.68rem;
+      color: var(--yellow);
+      font-weight: 400;
+    }
+
+    /* ── JURADOS ── */
+    #jurados {
+      background: var(--dark2);
+    }
+
+    #jurados .section-header h2 {
+      color: var(--white);
+    }
+
+    #jurados .section-header p {
+      color: #889;
+    }
+
+    .jury-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+    }
+
+    .jury-group {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .jury-group-label {
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--yellow);
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255,230,0,0.2);
+    }
+
+    .jury-card {
+      border-radius: var(--radius);
+      padding: 22px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      text-align: center;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .jury-card.unlocked {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,230,0,0.3);
+    }
+
+    .jury-card.unlocked:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255,230,0,0.55);
+    }
+
+    .jury-card.locked {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .jury-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(255,230,0,0.12);
+      border: 2px solid rgba(255,230,0,0.4);
+      color: var(--yellow);
+      font-size: 1.1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    .jury-avatar-santi {
+      background-image: url('santi_larralde.png');
+      background-position: center 10%;
+    }
+
+    .jury-lock-icon {
+      font-size: 1.8rem;
+      opacity: 0.3;
+      margin-bottom: 2px;
+    }
+
+    .jury-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .jury-name.locked-name {
+      color: #445;
+    }
+
+    .jury-role {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--yellow);
+      opacity: 0.85;
+    }
+
+    .jury-unlock-date {
+      font-size: 0.7rem;
+      color: #556;
+      margin-top: 2px;
+    }
+
+    .jury-date-highlight {
+      color: var(--yellow);
+      font-weight: 700;
+    }
+
+    .jury-card.incognito {
+      background: rgba(255,230,0,0.04);
+      border: 1px solid rgba(255,230,0,0.15);
+      border-style: dashed;
+    }
+
+    @media (max-width: 640px) {
+      .jury-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      color: #889;
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 0.85rem;
+    }
+
+    footer span {
+      color: var(--yellow);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav {
+        padding: 12px 20px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .timeline::before {
+        left: 20px;
+      }
+
+      .timeline-item,
+      .timeline-item:nth-child(even) {
+        justify-content: flex-start;
+        padding-left: 56px;
+        padding-right: 0;
+      }
+
+      .timeline-dot {
+        left: 20px;
+      }
+
+      .timeline-card {
+        max-width: 100%;
+      }
+
+      .hero-stats {
+        gap: 28px;
+      }
+
+      /* Teams en mobile: 1 columna */
+      .teams-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .team-card {
+        grid-column: span 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">⚡ Hackathon PF 2026</div>
+    <ul class="nav-links">
+      <li><a href="#cronograma">Cronograma</a></li>
+      <li><a href="#objetivos">Objetivos</a></li>
+      <li><a href="#evaluacion">Evaluación</a></li>
+      <li><a href="#presentacion">Presentación</a></li>
+      <li><a href="#equipos">Equipos</a></li>
+      <li><a href="#jurados">Jurados</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">MercadoLibre · 2026</div>
+
+    <!-- LOGO FRAUDE + GEN IA -->
+    <div class="hero-logo" aria-hidden="true">
+      <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Shield body -->
+        <path d="M60 8 L100 22 L100 58 C100 80 82 96 60 108 C38 96 20 80 20 58 L20 22 Z"
+              fill="rgba(255,230,0,0.12)" stroke="#FFE600" stroke-width="2.5" stroke-linejoin="round"/>
+        <!-- Neural nodes -->
+        <circle cx="60" cy="44" r="5" fill="#FFE600"/>
+        <circle cx="42" cy="60" r="4" fill="#FFE600" opacity="0.8"/>
+        <circle cx="78" cy="60" r="4" fill="#FFE600" opacity="0.8"/>
+        <circle cx="50" cy="76" r="3.5" fill="#FFE600" opacity="0.6"/>
+        <circle cx="70" cy="76" r="3.5" fill="#FFE600" opacity="0.6"/>
+        <!-- Neural connections -->
+        <line x1="60" y1="44" x2="42" y2="60" stroke="#FFE600" stroke-width="1.5" opacity="0.5"/>
+        <line x1="60" y1="44" x2="78" y2="60" stroke="#FFE600" stroke-width="1.5" opacity="0.5"/>
+        <line x1="42" y1="60" x2="50" y2="76" stroke="#FFE600" stroke-width="1.5" opacity="0.5"/>
+        <line x1="78" y1="60" x2="70" y2="76" stroke="#FFE600" stroke-width="1.5" opacity="0.5"/>
+        <line x1="42" y1="60" x2="70" y2="76" stroke="#FFE600" stroke-width="1" opacity="0.25"/>
+        <line x1="78" y1="60" x2="50" y2="76" stroke="#FFE600" stroke-width="1" opacity="0.25"/>
+        <line x1="50" y1="76" x2="70" y2="76" stroke="#FFE600" stroke-width="1.5" opacity="0.5"/>
+        <!-- Checkmark / lock accent -->
+        <path d="M51 60 L57 67 L70 52" stroke="#FFE600" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+      </svg>
+      <div class="hero-logo-labels">
+        <span class="logo-pill">🛡 Anti-fraude</span>
+        <span class="logo-pill logo-pill-ai">✦ Gen AI</span>
+      </div>
+    </div>
+
+    <h1>Hackathon <span>PF Marketplace</span><br/>Payments 2026</h1>
+    <p class="hero-sub">
+      Explorá el poder de la IA generativa, generá ideas disruptivas
+      y construí soluciones reales para combatir el fraude a escala.
+    </p>
+    <div class="hero-cta">
+      <a href="#cronograma" class="btn-primary">Ver cronograma</a>
+      <a href="#objetivos" class="btn-outline">Conocer objetivos</a>
+    </div>
+    <!-- COUNTDOWN -->
+    <div class="countdown-wrap">
+      <div class="countdown-label">Tiempo para el inicio · 11 de marzo, 09:00 hs</div>
+      <div class="countdown" id="countdown">
+        <div class="countdown-unit">
+          <div class="countdown-number" id="cd-days">--</div>
+          <div class="countdown-unit-label">Días</div>
+        </div>
+        <div class="countdown-unit">
+          <div class="countdown-number" id="cd-hours">--</div>
+          <div class="countdown-unit-label">Horas</div>
+        </div>
+        <div class="countdown-unit">
+          <div class="countdown-number" id="cd-mins">--</div>
+          <div class="countdown-unit-label">Minutos</div>
+        </div>
+        <div class="countdown-unit">
+          <div class="countdown-number" id="cd-secs">--</div>
+          <div class="countdown-unit-label">Segundos</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-number">2</div>
+        <div class="stat-label">Días de hackathon</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">3</div>
+        <div class="stat-label">Objetivos clave</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">MVP</div>
+        <div class="stat-label">Resultado esperado</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CRONOGRAMA -->
+  <section id="cronograma">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Fechas</span>
+        <h2>Cronograma</h2>
+        <p>Del kick-off a la ceremonia de cierre</p>
+      </div>
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-dot current-dot"></div>
+          <div class="timeline-card">
+            <div class="you-are-here-tag">📍 You are here</div>
+            <div class="timeline-date">25 de febrero · 2026</div>
+            <div class="timeline-title">Kick-off</div>
+            <div class="timeline-desc">
+              Presentación de los objetivos de la hackathon y conformación de equipos.
+              ¡Arranca oficialmente el desafío!
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-date">4 de marzo · 2026</div>
+            <div class="timeline-title">Sponsor Check</div>
+            <div class="timeline-desc">
+              Presentación de ideas a los sponsors. Los equipos exponen sus propuestas
+              y los sponsors tienen hasta 2 días para confirmar la viabilidad.
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-date">11 y 12 de marzo · 2026</div>
+            <div class="timeline-title">Hackathon</div>
+            <div class="timeline-desc">
+              ¡Manos a la obra! Dos días intensivos para construir el MVP o prototipo.
+              Foco total en ejecución, creatividad e impacto.
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-date">13 de marzo · 12:00 hs</div>
+            <div class="timeline-title">Presentación de resultados</div>
+            <div class="timeline-desc">
+              Cada equipo presenta su solución ante el jurado.
+              Máximo 3 diapositivas: problema, solución y roadmap.
+            </div>
+            <span class="timeline-time">Ante jurado</span>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-date">13 de marzo · 16:45 hs</div>
+            <div class="timeline-title">Ceremonia de cierre y premios</div>
+            <div class="timeline-desc">
+              Entrega de premios y celebración. ¡El momento que todos esperan!
+            </div>
+            <span class="timeline-time">Ceremonia oficial</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- OBJETIVOS -->
+  <section id="objetivos">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Por qué</span>
+        <h2>Objetivos</h2>
+        <p>Tres pilares que guían este desafío</p>
+      </div>
+      <div class="obj-grid">
+
+        <div class="obj-card">
+          <div class="obj-number">1</div>
+          <div class="obj-icon">⚡</div>
+          <div class="obj-title">Acelerar la adopción de GenAI en FP Fintech</div>
+          <div class="obj-desc">
+            Llevá las herramientas de IA de MELI al centro del trabajo diario.
+            Claude Code, Fury y el ecosistema Gen AI son el punto de partida
+            para transformar cómo operamos en FP Fintech.
+          </div>
+          <div class="obj-tags">
+            <span class="obj-tag">Claude Code</span>
+            <span class="obj-tag">Fury</span>
+            <span class="obj-tag">Gen AI</span>
+          </div>
+        </div>
+
+        <div class="obj-card">
+          <div class="obj-number">2</div>
+          <div class="obj-icon">📊</div>
+          <div class="obj-title">Desarrollá soluciones con impacto en negocio</div>
+          <div class="obj-desc">
+            Las ideas deben traducirse en valor real y medible. Pensá en soluciones
+            que combatan el fraude, escalen operaciones y muevan métricas concretas
+            mes a mes.
+          </div>
+          <div class="obj-tags">
+            <span class="obj-tag">Anti-fraude</span>
+            <span class="obj-tag">Escalabilidad</span>
+            <span class="obj-tag">Métricas</span>
+          </div>
+        </div>
+
+        <div class="obj-card">
+          <div class="obj-number">3</div>
+          <div class="obj-icon">🏗️</div>
+          <div class="obj-title">Entregar MVPs tangibles listos para escalar</div>
+          <div class="obj-desc">
+            No alcanza con la idea: hay que construirla. El resultado esperado
+            es un MVP o prototipo funcional que pueda evolucionar y estar
+            en producción con un roadmap claro.
+          </div>
+          <div class="obj-tags">
+            <span class="obj-tag">MVP</span>
+            <span class="obj-tag">Producción</span>
+            <span class="obj-tag">Roadmap</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EVALUACION -->
+  <section id="evaluacion">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Evaluación</span>
+        <h2>Criterios de evaluación</h2>
+        <p>Los 5 ejes sobre los que se va a juzgar cada propuesta</p>
+      </div>
+      <div class="eval-grid">
+
+        <!-- 1. Uso de herramientas de IA -->
+        <div class="eval-card">
+          <span class="eval-must">Must</span>
+          <div class="eval-card-header">
+            <div class="eval-icon">🤖</div>
+          </div>
+          <div class="eval-title">Uso de herramientas de IA de MELI</div>
+          <div class="eval-desc">
+            <div class="eval-sublabel">Se evaluará:</div>
+            <ol class="eval-list">
+              <li>Uso efectivo de Claude Code, Fury u otras herramientas del ecosistema</li>
+              <li>Nivel de integración real en la solución (no solo uso superficial)</li>
+              <li>Justificación de por qué la herramienta elegida agrega valor</li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- 2. MVP -->
+        <div class="eval-card">
+          <span class="eval-must">Must</span>
+          <div class="eval-card-header">
+            <div class="eval-icon">🎤</div>
+          </div>
+          <div class="eval-title">Entregable presentado</div>
+          <div class="eval-desc">
+            <div class="eval-sublabel">Se evaluará:</div>
+            <ol class="eval-list">
+              <li>Existencia de un MVP o prototipo funcional</li>
+              <li>Claridad en la presentación (problema → solución → impacto)</li>
+              <li>Capacidad de demo o evidencia tangible</li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- 3. Impacto generado -->
+        <div class="eval-card">
+          <div class="eval-card-header">
+            <div class="eval-icon">📈</div>
+          </div>
+          <div class="eval-title">Impacto generado</div>
+          <div class="eval-desc">
+            <div class="eval-sublabel">Se evaluará:</div>
+            <ol class="eval-list">
+              <li>Magnitud del impacto estimado (ej: pp en aprobación, reducción de fraude, ahorro en horas)</li>
+              <li>Claridad de las métricas (mensual / anual)</li>
+              <li>Realismo de los supuestos utilizados</li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- 4. Innovación -->
+        <div class="eval-card">
+          <div class="eval-card-header">
+            <div class="eval-icon">💡</div>
+          </div>
+          <div class="eval-title">Innovación sobre el tema elegido</div>
+          <div class="eval-desc">
+            <div class="eval-sublabel">Se evaluará:</div>
+            <ol class="eval-list">
+              <li>Nivel de diferenciación frente a soluciones actuales</li>
+              <li>Uso creativo de IA</li>
+              <li>Enfoque disruptivo vs incremental</li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- 5. Alineación -->
+        <div class="eval-card">
+          <div class="eval-card-header">
+            <div class="eval-icon">🎯</div>
+          </div>
+          <div class="eval-title">Alineación con las key battles del equipo</div>
+          <div class="eval-desc">
+            <div class="eval-sublabel">Se evaluará:</div>
+            <ol class="eval-list">
+              <li>Contribución directa a objetivos estratégicos 2026</li>
+              <li>Claridad en la conexión entre la solución y las prioridades del negocio</li>
+              <li>Potencial de escalabilidad dentro de la organización</li>
+            </ol>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PRESENTACION -->
+  <section id="presentacion">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Formato</span>
+        <h2>Estructura de la presentación</h2>
+        <p>Máximo 3 slides por equipo</p>
+      </div>
+      <div class="slides-grid">
+
+        <div class="slide-card">
+          <div class="slide-num">1</div>
+          <div class="slide-title">Problema</div>
+          <div class="slide-desc">
+            ¿Qué problema identificaron? Describí el dolor o la oportunidad
+            con datos concretos y contexto.
+          </div>
+        </div>
+
+        <div class="slide-card">
+          <div class="slide-num">2</div>
+          <div class="slide-title">Solución</div>
+          <div class="slide-desc">
+            ¿Cómo lo resolvieron? Mostrá el MVP o prototipo
+            y el valor que genera para el negocio.
+          </div>
+        </div>
+
+        <div class="slide-card">
+          <div class="slide-num">3</div>
+          <div class="slide-title">Roadmap</div>
+          <div class="slide-desc">
+            ¿Cuáles son los próximos pasos? Próximas iteraciones,
+            dependencias y visión a futuro.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EQUIPOS -->
+  <section id="equipos">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Participantes</span>
+        <h2>Equipos</h2>
+        <p>Los protagonistas de este desafío</p>
+      </div>
+      <div class="teams-grid">
+
+        <!-- EQUIPO 1 -->
+        <div class="team-card" id="team-card-1">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="card-front-number">1</div>
+              <div class="card-front-name">Equipo 1</div>
+              <div class="card-front-hint">Tocá para ver integrantes</div>
+            </div>
+            <div class="card-back">
+              <div class="card-back-title">Equipo 1</div>
+              <div class="team-members">
+                <div class="members-top-row">
+                  <div class="member-row"><div class="avatar-photo avatar-guille"></div><div class="member-name">Guille<br>Martinez</div></div>
+                  <div class="member-row"><div class="avatar-photo avatar-fran"></div><div class="member-name">Fran<br>Bordagaray</div></div>
+                  <div class="member-row"><div class="avatar-photo avatar-juani"></div><div class="member-name">Juani<br>Abal</div></div>
+                </div>
+                <div class="members-bottom-row">
+                  <div class="member-row"><div class="avatar-photo avatar-manu"></div><div class="member-name">Manu<br>Salazar</div></div>
+                  <div class="member-row"><div class="avatar-photo avatar-vale"></div><div class="member-name">Vale<br>Mesa Correa</div></div>
+                </div>
+              </div>
+              <div class="card-sponsors">
+                <span class="sponsor-name">Ori</span>
+                <span class="sponsor-name">Ronnie</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EQUIPO 2 -->
+        <div class="team-card" id="team-card-2">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="card-front-number">2</div>
+              <div class="card-front-name">Equipo 2</div>
+              <div class="card-front-hint">Tocá para ver integrantes</div>
+            </div>
+            <div class="card-back">
+              <div class="card-back-title">Equipo 2</div>
+              <div class="team-members">
+                <div class="members-top-row">
+                  <div class="member-row"><div class="avatar-photo avatar-mati"></div><div class="member-name">Mati<br>Denicola</div></div>
+                  <div class="member-row"><div class="avatar-photo avatar-andrew"></div><div class="member-name">Andrew<br>James</div></div>
+                  <div class="member-row"><div class="avatar-photo avatar-daniel"></div><div class="member-name">Daniel<br>Teidi</div></div>
+                </div>
+                <div class="members-bottom-row">
+                  <div class="member-row"><div class="avatar-photo avatar-alen"></div><div class="member-name">Alen<br>Jimenez</div></div>
+                  <div class="member-row"><div class="avatar-photo avatar-maxi"></div><div class="member-name">Maxi<br>Pan</div></div>
+                </div>
+              </div>
+              <div class="card-sponsors">
+                <span class="sponsor-name">Santi Z</span>
+                <span class="sponsor-name">Agus S</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EQUIPO 3 -->
+        <div class="team-card" id="team-card-3">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="card-front-number">3</div>
+              <div class="card-front-name">Equipo 3</div>
+              <div class="card-front-hint">Tocá para ver integrantes</div>
+            </div>
+            <div class="card-back">
+              <div class="card-back-title">Equipo 3</div>
+              <div class="team-members">
+                <div class="members-top-row">
+                  <div class="member-row"><div class="avatar-photo avatar-martin"></div><div class="member-name">Martin<br>Baggio</div></div>
+                  <div class="member-row"><div class="avatar-photo avatar-leti"></div><div class="member-name">Leti<br>Vilariño</div></div>
+                  <div class="member-row"><div class="avatar-photo avatar-fede"></div><div class="member-name">Fede<br>Colombo</div></div>
+                </div>
+                <div class="members-bottom-row">
+                  <div class="member-row"><div class="avatar-photo avatar-tanque"></div><div class="member-name">Tanque<br>Silva</div></div>
+                  <div class="member-row"><div class="avatar-photo avatar-sancho"></div><div class="member-name">Sancho<br>Rodriguez</div></div>
+                </div>
+              </div>
+              <div class="card-sponsors">
+                <span class="sponsor-name">Santi Z</span>
+                <span class="sponsor-name">Ronnie</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EQUIPO 4 -->
+        <div class="team-card" id="team-card-4">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="card-front-number">4</div>
+              <div class="card-front-name">Equipo 4</div>
+              <div class="card-front-hint">Tocá para ver integrantes</div>
+            </div>
+            <div class="card-back">
+              <div class="card-back-title">Equipo 4</div>
+              <div class="team-members">
+                <div class="members-top-row">
+                  <div class="member-row"><div class="avatar-photo avatar-ari"></div><div class="member-name">Ari<br>Romero</div></div>
+                  <div class="member-row"><div class="avatar-photo avatar-car"></div><div class="member-name">Car<br>Espinola</div></div>
+                  <div class="member-row"><div class="avatar-photo avatar-nachito"></div><div class="member-name">Nachito<br>Brusati</div></div>
+                </div>
+                <div class="members-bottom-row">
+                  <div class="member-row"><div class="avatar-photo avatar-mcant"></div><div class="member-name">Maxi<br>Cantarell</div></div>
+                  <div class="member-row"><div class="avatar-photo avatar-lu"></div><div class="member-name">Lu<br>Miranda</div></div>
+                </div>
+              </div>
+              <div class="card-sponsors">
+                <span class="sponsor-name">Polly</span>
+                <span class="sponsor-name">Seba</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EQUIPO 5 -->
+        <div class="team-card" id="team-card-5">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="card-front-number">5</div>
+              <div class="card-front-name">Equipo 5</div>
+              <div class="card-front-hint">Tocá para ver integrantes</div>
+            </div>
+            <div class="card-back">
+              <div class="card-back-title">Equipo 5</div>
+              <div class="team-members">
+                <div class="members-top-row">
+                  <div class="member-row"><div class="avatar-photo avatar-drivero"></div><div class="member-name">Diego<br>Rivero</div></div>
+                  <div class="member-row"><div class="avatar-photo avatar-dirigaray"></div><div class="member-name">Diego<br>Irigaray</div></div>
+                  <div class="member-row"><div class="avatar-photo avatar-esteban"></div><div class="member-name">Esteban<br>Guruceaga</div></div>
+                </div>
+                <div class="members-bottom-row">
+                  <div class="member-row"><div class="avatar-photo avatar-rossina"></div><div class="member-name">Rossina<br>Primavera</div></div>
+                  <div class="member-row"><div class="avatar-photo avatar-michu"></div><div class="member-name">Michu</div></div>
+                </div>
+              </div>
+              <div class="card-sponsors">
+                <span class="sponsor-name">Agus S</span>
+                <span class="sponsor-name">Polly</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EQUIPO 6 -->
+        <div class="team-card" id="team-card-6">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="card-front-number">6</div>
+              <div class="card-front-name">Equipo 6</div>
+              <div class="card-front-hint">Tocá para ver integrantes</div>
+            </div>
+            <div class="card-back">
+              <div class="card-back-title">Equipo 6</div>
+              <div class="team-members">
+                <div class="members-top-row">
+                  <div class="member-row"><div class="avatar-photo avatar-peter"></div><div class="member-name">Peter<br>Zorko</div></div>
+                  <div class="member-row"><div class="avatar-photo avatar-anna"></div><div class="member-name">Anna<br>Sardinha</div></div>
+                  <div class="member-row"><div class="avatar-photo avatar-tedoldi"></div><div class="member-name">Santi<br>Tedoldi</div></div>
+                </div>
+                <div class="members-bottom-row">
+                  <div class="member-row"><div class="avatar-photo avatar-eri"></div><div class="member-name">Eri<br>Zambrano</div></div>
+                  <div class="member-row"><div class="avatar-photo avatar-feli"></div><div class="member-name">Feli<br>Gonzalez</div></div>
+                </div>
+              </div>
+              <div class="card-sponsors">
+                <span class="sponsor-name">Alvarito</span>
+                <span class="sponsor-name">Juanse</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EQUIPO 7 -->
+        <div class="team-card" id="team-card-7">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="card-front-number">7</div>
+              <div class="card-front-name">Equipo 7</div>
+              <div class="card-front-hint">Tocá para ver integrantes</div>
+            </div>
+            <div class="card-back">
+              <div class="card-back-title">Equipo 7</div>
+              <div class="team-members">
+                <div class="members-top-row">
+                  <div class="member-row"><div class="avatar-photo avatar-isa"></div><div class="member-name">Isa<br>Noya</div></div>
+                  <div class="member-row"><div class="avatar-photo avatar-luki"></div><div class="member-name">Luki<br>Pioli</div></div>
+                  <div class="member-row"><div class="avatar-photo avatar-gonza"></div><div class="member-name">Gonza<br>Silberstein</div></div>
+                </div>
+                <div class="members-bottom-row">
+                  <div class="member-row"><div class="avatar-photo avatar-bruno"></div><div class="member-name">Bruno<br>Silva</div></div>
+                  <div class="member-row"><div class="avatar-photo avatar-flor"></div><div class="member-name">Flor<br>Gonnet</div></div>
+                </div>
+              </div>
+              <div class="card-sponsors">
+                <span class="sponsor-name">Ori</span>
+                <span class="sponsor-name">Alvarito</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EQUIPO 8 -->
+        <div class="team-card" id="team-card-8">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="card-front-number">8</div>
+              <div class="card-front-name">Equipo 8</div>
+              <div class="card-front-hint">Tocá para ver integrantes</div>
+            </div>
+            <div class="card-back">
+              <div class="card-back-title">Equipo 8</div>
+              <div class="team-members">
+                <div class="members-top-row">
+                  <div class="member-row"><div class="avatar-photo avatar-agus"></div><div class="member-name">Agus<br>Pons</div></div>
+                  <div class="member-row"><div class="avatar-photo avatar-dani"></div><div class="member-name">Dani<br>Carro</div></div>
+                  <div class="member-row"><div class="avatar-photo avatar-rodri"></div><div class="member-name">Rodri<br>Marquez</div></div>
+                </div>
+                <div class="members-bottom-row">
+                  <div class="member-row"><div class="avatar-photo avatar-flocurb"></div><div class="member-name">Flo<br>Curbelo</div></div>
+                  <div class="member-row"><div class="avatar-photo avatar-andy"></div><div class="member-name">Andy<br>Santucci</div></div>
+                </div>
+              </div>
+              <div class="card-sponsors">
+                <span class="sponsor-name">Pablito</span>
+                <span class="sponsor-name">Cami</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- JURADOS -->
+  <section id="jurados">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Panel</span>
+        <h2>Jurado</h2>
+        <p>Los expertos que evaluarán tu proyecto</p>
+      </div>
+      <div class="jury-grid">
+
+        <!-- DATA ANALYTICS -->
+        <div class="jury-group">
+          <div class="jury-group-label">Data Analytics</div>
+          <div class="jury-card locked">
+            <div class="jury-lock-icon">🔒</div>
+            <div class="jury-name locked-name">???</div>
+            <div class="jury-unlock-date">Se desbloquea el 09/03</div>
+          </div>
+          <div class="jury-card locked">
+            <div class="jury-lock-icon">🔒</div>
+            <div class="jury-name locked-name">???</div>
+            <div class="jury-unlock-date">Se desbloquea el 12/03</div>
+          </div>
+        </div>
+
+        <!-- DATA SCIENCE -->
+        <div class="jury-group">
+          <div class="jury-group-label">Data Science</div>
+          <div class="jury-card unlocked">
+            <div class="jury-avatar jury-avatar-santi"></div>
+            <div class="jury-name">Santi Larralde</div>
+            <div class="jury-role">Data Science</div>
+          </div>
+          <div class="jury-card locked">
+            <div class="jury-lock-icon">🔒</div>
+            <div class="jury-name locked-name">???</div>
+            <div class="jury-unlock-date">Se desbloquea el 11/03</div>
+          </div>
+        </div>
+
+        <!-- DATA ENGINEERING -->
+        <div class="jury-group">
+          <div class="jury-group-label">Data Engineering</div>
+          <div class="jury-card locked">
+            <div class="jury-lock-icon">🔒</div>
+            <div class="jury-name locked-name">???</div>
+            <div class="jury-unlock-date">Se desbloquea el 06/03</div>
+          </div>
+          <div class="jury-card locked">
+            <div class="jury-lock-icon">🔒</div>
+            <div class="jury-name locked-name">???</div>
+            <div class="jury-unlock-date">Se desbloquea el 10/03</div>
+          </div>
+        </div>
+
+        <!-- INCÓGNITO -->
+        <div class="jury-group">
+          <div class="jury-group-label">Especial</div>
+          <div class="jury-card incognito">
+            <div class="jury-lock-icon">🕵️</div>
+            <div class="jury-name locked-name">Incógnito</div>
+            <div class="jury-unlock-date">Se desbloquea el <span class="jury-date-highlight">13/03</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Hackathon <span>PF Marketplace Payments 2026</span> · MercadoLibre</p>
+    <p style="margin-top:6px">Construido con 💛 y mucho Gen AI</p>
+    <p style="margin-top:6px; font-size:0.8rem; color:#556;">Creado por Josefina Biondi</p>
+  </footer>
+
+  <audio id="f1-audio"       src="f1-theme.mp3"   preload="auto"></audio>
+  <audio id="champions-audio" src="champions.mp3" preload="auto"></audio>
+  <audio id="nba-audio"        src="NBA.mp3"              preload="auto"></audio>
+  <audio id="piratas-audio"   src="piratas_caribe.mp3"   preload="auto"></audio>
+  <audio id="nfl-audio"       src="NFL.mp3"              preload="auto"></audio>
+  <audio id="rocky-audio"     src="rocky_balboa.mp3"     preload="auto"></audio>
+  <audio id="chicago-audio"   src="final_chicago.mp3"    preload="auto"></audio>
+  <audio id="sevenarmy-audio" src="seven_army.mp3"        preload="auto"></audio>
+
+  <script>
+    // ── Mapa de equipos: card → audio ──
+    const teamMap = [
+      { cardId: 'team-card-1', audioId: 'f1-audio' },
+      { cardId: 'team-card-2', audioId: 'champions-audio' },
+      { cardId: 'team-card-3', audioId: 'nba-audio' },
+      { cardId: 'team-card-4', audioId: 'piratas-audio' },
+      { cardId: 'team-card-5', audioId: 'nfl-audio' },
+      { cardId: 'team-card-6', audioId: 'rocky-audio' },
+      { cardId: 'team-card-7', audioId: 'chicago-audio' },
+      { cardId: 'team-card-8', audioId: 'sevenarmy-audio' },
+    ].map(({ cardId, audioId }) => ({
+      card:  document.getElementById(cardId),
+      audio: document.getElementById(audioId),
+    }));
+
+    // Para todos los otros equipos: cierra la tarjeta y para el audio
+    function stopOthers(current) {
+      teamMap.forEach(({ card, audio }) => {
+        if (card !== current) {
+          card.classList.remove('flipped');
+          audio.pause();
+          audio.currentTime = 0;
+        }
+      });
+    }
+
+    teamMap.forEach(({ card, audio }) => {
+      card.addEventListener('click', () => {
+        const isFlipped = card.classList.toggle('flipped');
+        if (isFlipped) {
+          stopOthers(card);          // para el resto antes de reproducir
+          audio.currentTime = 0;
+          audio.play().catch(() => {});
+        } else {
+          audio.pause();
+          audio.currentTime = 0;
+        }
+      });
+    });
+
+    const TARGET = new Date('2026-03-11T09:00:00');
+
+    function pad(n) {
+      return String(n).padStart(2, '0');
+    }
+
+    function tick() {
+      const now = new Date();
+      const diff = TARGET - now;
+
+      if (diff <= 0) {
+        document.getElementById('countdown').innerHTML =
+          '<p class="countdown-done">🚀 ¡La hackathon arrancó!</p>';
+        return;
+      }
+
+      const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const secs  = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('cd-days').textContent  = pad(days);
+      document.getElementById('cd-hours').textContent = pad(hours);
+      document.getElementById('cd-mins').textContent  = pad(mins);
+      document.getElementById('cd-secs').textContent  = pad(secs);
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  </script>
+
+</body>
+</html>
