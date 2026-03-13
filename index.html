@@ -740,6 +740,16 @@
       text-align: center;
     }
 
+    .card-front-team-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #4a90d9;
+      letter-spacing: 1.5px;
+      margin-top: 10px;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+
     .card-front-hint {
       margin-top: 12px;
       font-size: 0.7rem;
@@ -1039,6 +1049,11 @@
       background-position: center 15%;
     }
 
+    .jury-avatar-ale-anon {
+      background-image: url('ale_anon.png');
+      background-position: center 15%;
+    }
+
     .jury-avatar-ricardo {
       background-image: url('ricardo_sposito.png');
       background-position: center 15%;
@@ -1092,6 +1107,105 @@
         gap: 20px;
       }
     }
+
+    /* ── GANADOR ── */
+    #ganador {
+      background: linear-gradient(135deg, var(--dark) 0%, #0f1a35 100%);
+    }
+
+    #ganador .section-header h2 {
+      color: var(--white);
+    }
+
+    #ganador .section-header p {
+      color: #889;
+    }
+
+    /* podio olímpico */
+    .podium {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 0;
+    }
+
+    .podium-slot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 210px;
+    }
+
+    /* bandera sobre el escalón */
+    .podium-flag {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      margin-bottom: -2px;
+    }
+
+    .flag-fabric {
+      width: 84%;
+      background: rgba(255,230,0,0.11);
+      padding: 16px 22px 16px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      clip-path: polygon(0 0, 100% 6%, 88% 50%, 100% 94%, 0 100%);
+      animation: flag-wave 2.2s ease-in-out infinite;
+      filter: drop-shadow(0 0 5px rgba(255,230,0,0.15));
+    }
+
+    .podium-second .flag-fabric { animation-delay: 0.35s; }
+    .podium-third  .flag-fabric { animation-delay: 0.7s;  }
+
+    @keyframes flag-wave {
+      0%   { clip-path: polygon(0 0,   100% 6%,  88% 50%, 100% 94%,  0 100%); }
+      20%  { clip-path: polygon(0 4%,  100% 0,   88% 50%, 100% 100%, 0 96%);  }
+      40%  { clip-path: polygon(0 1%,  100% 9%,  85% 50%, 100% 91%,  0 99%);  }
+      60%  { clip-path: polygon(0 8%,  100% 2%,  85% 50%, 100% 98%,  0 92%);  }
+      80%  { clip-path: polygon(0 2%,  100% 7%,  87% 50%, 100% 93%,  0 98%);  }
+      100% { clip-path: polygon(0 0,   100% 6%,  88% 50%, 100% 94%,  0 100%); }
+    }
+
+    .flag-text-equipo {
+      font-size: 0.58rem;
+      font-weight: 800;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(255,230,0,0.45);
+    }
+
+    .flag-text-num {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: #445;
+      letter-spacing: 4px;
+    }
+
+    .flag-pole {
+      width: 3px;
+      height: 56px;
+      background: linear-gradient(to bottom, rgba(180,180,180,0.7), rgba(90,90,90,0.3));
+      border-radius: 0 0 2px 2px;
+    }
+
+    /* escalones */
+    .podium-step {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: 900;
+      border-radius: 6px 6px 0 0;
+    }
+
+    .podium-first  .podium-step { height: 130px; background: linear-gradient(180deg, #d4a900 0%, #a07800 100%); color: #fff8dc; }
+    .podium-second .podium-step { height: 90px;  background: linear-gradient(180deg, #8a9aaa 0%, #5c6b78 100%); color: #e8eef3; }
+    .podium-third  .podium-step { height: 60px;  background: linear-gradient(180deg, #8c5a2e 0%, #5e3510 100%); color: #f0dcc8; }
 
     /* ── FOOTER ── */
     footer {
@@ -1162,6 +1276,7 @@
       <li><a href="#presentacion">Presentación</a></li>
       <li><a href="#equipos">Equipos</a></li>
       <li><a href="#jurados">Jurados</a></li>
+      <li><a href="#ganador">Ganador</a></li>
     </ul>
   </nav>
 
@@ -1281,9 +1396,8 @@
         </div>
 
         <div class="timeline-item">
-          <div class="timeline-dot current-dot"></div>
+          <div class="timeline-dot"></div>
           <div class="timeline-card">
-            <div class="you-are-here-tag">📍 You are here</div>
             <div class="timeline-date">11 y 12 de marzo · 2026</div>
             <div class="timeline-title">Hackathon</div>
             <div class="timeline-desc">
@@ -1294,8 +1408,9 @@
         </div>
 
         <div class="timeline-item">
-          <div class="timeline-dot"></div>
+          <div class="timeline-dot current-dot"></div>
           <div class="timeline-card">
+            <div class="you-are-here-tag">📍 You are here</div>
             <div class="timeline-date">13 de marzo · 12:00 hs</div>
             <div class="timeline-title">Presentación de resultados</div>
             <div class="timeline-desc">
@@ -1537,6 +1652,7 @@
             <div class="card-front">
               <div class="card-front-number">1</div>
               <div class="card-front-name">Equipo 1</div>
+              <div class="card-front-team-name">Gadget</div>
               <div class="card-front-hint">Tocá para ver integrantes</div>
             </div>
             <div class="card-back">
@@ -1566,6 +1682,7 @@
             <div class="card-front">
               <div class="card-front-number">2</div>
               <div class="card-front-name">Equipo 2</div>
+              <div class="card-front-team-name">ADAMM</div>
               <div class="card-front-hint">Tocá para ver integrantes</div>
             </div>
             <div class="card-back">
@@ -1595,6 +1712,7 @@
             <div class="card-front">
               <div class="card-front-number">3</div>
               <div class="card-front-name">Equipo 3</div>
+              <div class="card-front-team-name">Tesseract</div>
               <div class="card-front-hint">Tocá para ver integrantes</div>
             </div>
             <div class="card-back">
@@ -1624,6 +1742,7 @@
             <div class="card-front">
               <div class="card-front-number">4</div>
               <div class="card-front-name">Equipo 4</div>
+              <div class="card-front-team-name">TrIAge</div>
               <div class="card-front-hint">Tocá para ver integrantes</div>
             </div>
             <div class="card-back">
@@ -1653,6 +1772,7 @@
             <div class="card-front">
               <div class="card-front-number">5</div>
               <div class="card-front-name">Equipo 5</div>
+              <div class="card-front-team-name">Chaman</div>
               <div class="card-front-hint">Tocá para ver integrantes</div>
             </div>
             <div class="card-back">
@@ -1682,6 +1802,7 @@
             <div class="card-front">
               <div class="card-front-number">6</div>
               <div class="card-front-name">Equipo 6</div>
+              <div class="card-front-team-name">CBK 360</div>
               <div class="card-front-hint">Tocá para ver integrantes</div>
             </div>
             <div class="card-back">
@@ -1711,6 +1832,7 @@
             <div class="card-front">
               <div class="card-front-number">7</div>
               <div class="card-front-name">Equipo 7</div>
+              <div class="card-front-team-name">Clipper</div>
               <div class="card-front-hint">Tocá para ver integrantes</div>
             </div>
             <div class="card-back">
@@ -1740,6 +1862,7 @@
             <div class="card-front">
               <div class="card-front-number">8</div>
               <div class="card-front-name">Equipo 8</div>
+              <div class="card-front-team-name">Atalaya</div>
               <div class="card-front-hint">Tocá para ver integrantes</div>
             </div>
             <div class="card-back">
@@ -1810,6 +1933,11 @@
             <div class="jury-name">Andrey Ruschel</div>
             <div class="jury-role">Data Science</div>
           </div>
+          <div class="jury-card unlocked">
+            <div class="jury-avatar jury-avatar-ale-anon"></div>
+            <div class="jury-name">Ale Añon</div>
+            <div class="jury-role">Data Science</div>
+          </div>
         </div>
 
         <!-- DATA ENGINEERING -->
@@ -1827,14 +1955,78 @@
           </div>
         </div>
 
-        <!-- INCÓGNITO -->
+        <!-- TODOS -->
         <div class="jury-group">
           <div class="jury-group-label">Especial</div>
-          <div class="jury-card incognito">
-            <div class="jury-lock-icon">🕵️</div>
-            <div class="jury-name locked-name">Incógnito</div>
-            <div class="jury-unlock-date">Se desbloquea el <span class="jury-date-highlight">13/03</span></div>
+          <div class="jury-card unlocked" style="gap: 12px;">
+            <div style="font-size: 2rem;">🌟</div>
+            <div class="jury-name" style="font-size: 1.1rem;">¡TODOS!</div>
+            <div class="jury-role">Voto popular</div>
+            <a id="vote-btn" href="LINK_FORM_AQUI" target="_blank" style="
+              margin-top: 4px;
+              background: var(--yellow);
+              color: var(--dark);
+              font-size: 0.75rem;
+              font-weight: 800;
+              text-decoration: none;
+              padding: 7px 16px;
+              border-radius: 20px;
+              letter-spacing: 0.5px;
+              transition: opacity 0.2s;
+            " onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+              ¡Votar ahora! 🗳️
+            </a>
           </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- GANADOR -->
+  <section id="ganador">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">🏆 Premio</span>
+        <h2>Ganador Hackathon 2026</h2>
+        <p>Los 3 finalistas de esta edición</p>
+      </div>
+      <div class="podium">
+
+        <!-- 2° lugar — izquierda -->
+        <div class="podium-slot podium-second">
+          <div class="podium-flag">
+            <div class="flag-fabric">
+              <div class="flag-text-equipo">Equipo</div>
+              <div class="flag-text-num">???</div>
+            </div>
+            <div class="flag-pole"></div>
+          </div>
+          <div class="podium-step">🥈</div>
+        </div>
+
+        <!-- 1° lugar — centro, más alto -->
+        <div class="podium-slot podium-first">
+          <div class="podium-flag">
+            <div class="flag-fabric">
+              <div class="flag-text-equipo">Equipo</div>
+              <div class="flag-text-num">???</div>
+            </div>
+            <div class="flag-pole"></div>
+          </div>
+          <div class="podium-step">🥇</div>
+        </div>
+
+        <!-- 3° lugar — derecha, más bajo -->
+        <div class="podium-slot podium-third">
+          <div class="podium-flag">
+            <div class="flag-fabric">
+              <div class="flag-text-equipo">Equipo</div>
+              <div class="flag-text-num">???</div>
+            </div>
+            <div class="flag-pole"></div>
+          </div>
+          <div class="podium-step">🥉</div>
         </div>
 
       </div>
