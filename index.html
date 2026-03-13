@@ -1111,6 +1111,40 @@
     /* ── GANADOR ── */
     #ganador {
       background: linear-gradient(135deg, var(--dark) 0%, #0f1a35 100%);
+      padding-bottom: 180px;
+      position: relative;
+    }
+
+    .ganador-lock {
+      position: absolute;
+      inset: 0;
+      background: rgba(10, 14, 26, 0.88);
+      backdrop-filter: blur(6px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      z-index: 10;
+      border-radius: inherit;
+    }
+
+    .ganador-lock-icon {
+      font-size: 3rem;
+    }
+
+    .ganador-lock-text {
+      font-size: 1rem;
+      font-weight: 700;
+      color: rgba(255,230,0,0.7);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .ganador-lock-sub {
+      font-size: 0.72rem;
+      color: #778;
+      letter-spacing: 1px;
     }
 
     #ganador .section-header h2 {
@@ -1134,6 +1168,14 @@
       flex-direction: column;
       align-items: center;
       width: 210px;
+      perspective: 700px;
+      position: relative;
+    }
+
+    .podium-third,
+    .podium-second,
+    .podium-first {
+      cursor: pointer;
     }
 
     /* bandera sobre el escalón */
@@ -1143,6 +1185,14 @@
       align-items: center;
       width: 100%;
       margin-bottom: -2px;
+      transform: rotateY(90deg);
+      opacity: 0;
+      transition: transform 0.9s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+    }
+
+    .podium-slot.revealed .podium-flag {
+      transform: rotateY(0deg);
+      opacity: 1;
     }
 
     .flag-fabric {
@@ -1155,11 +1205,13 @@
       gap: 5px;
       clip-path: polygon(0 0, 100% 6%, 88% 50%, 100% 94%, 0 100%);
       animation: flag-wave 2.2s ease-in-out infinite;
+      animation-play-state: paused;
       filter: drop-shadow(0 0 5px rgba(255,230,0,0.15));
     }
 
-    .podium-second .flag-fabric { animation-delay: 0.35s; }
-    .podium-third  .flag-fabric { animation-delay: 0.7s;  }
+    .podium-slot.revealed .flag-fabric {
+      animation-play-state: running;
+    }
 
     @keyframes flag-wave {
       0%   { clip-path: polygon(0 0,   100% 6%,  88% 50%, 100% 94%,  0 100%); }
@@ -1179,10 +1231,10 @@
     }
 
     .flag-text-num {
-      font-size: 1.15rem;
+      font-size: 1rem;
       font-weight: 900;
-      color: #445;
-      letter-spacing: 4px;
+      color: rgba(255,230,0,0.9);
+      letter-spacing: 2px;
     }
 
     .flag-pole {
@@ -1190,6 +1242,23 @@
       height: 56px;
       background: linear-gradient(to bottom, rgba(180,180,180,0.7), rgba(90,90,90,0.3));
       border-radius: 0 0 2px 2px;
+    }
+
+    .reveal-hint {
+      font-size: 0.58rem;
+      color: rgba(255,255,255,0.65);
+      letter-spacing: 0.5px;
+      margin-top: 6px;
+      animation: pulse-opacity 1.4s ease-in-out infinite;
+    }
+
+    .podium-slot.revealed .reveal-hint {
+      display: none;
+    }
+
+    @keyframes pulse-opacity {
+      0%, 100% { opacity: 0.5; }
+      50%       { opacity: 1; }
     }
 
     /* escalones */
@@ -1206,6 +1275,67 @@
     .podium-first  .podium-step { height: 130px; background: linear-gradient(180deg, #d4a900 0%, #a07800 100%); color: #fff8dc; }
     .podium-second .podium-step { height: 90px;  background: linear-gradient(180deg, #8a9aaa 0%, #5c6b78 100%); color: #e8eef3; }
     .podium-third  .podium-step { height: 60px;  background: linear-gradient(180deg, #8c5a2e 0%, #5e3510 100%); color: #f0dcc8; }
+
+    /* ── Team reveal bajo el podio ── */
+    .podium-team {
+      position: absolute;
+      top: calc(100% + 16px);
+      left: 50%;
+      transform: translateX(-50%) translateY(12px);
+      width: 210px;
+      opacity: 0;
+      transition: opacity 0.6s ease 0.85s, transform 0.6s ease 0.85s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      pointer-events: none;
+    }
+
+    .podium-slot.revealed .podium-team {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+
+    .podium-team-label {
+      font-size: 0.65rem;
+      font-weight: 800;
+      color: rgba(255,230,0,0.75);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .podium-team-members {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .podium-member {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .podium-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      border: 2px solid rgba(255,230,0,0.45);
+      box-shadow: 0 0 6px rgba(255,230,0,0.15);
+    }
+
+    .podium-member-name {
+      font-size: 0.48rem;
+      color: #aaa;
+      text-align: center;
+      line-height: 1.3;
+    }
 
     /* ── FOOTER ── */
     footer {
@@ -1962,7 +2092,7 @@
             <div style="font-size: 2rem;">🌟</div>
             <div class="jury-name" style="font-size: 1.1rem;">¡TODOS!</div>
             <div class="jury-role">Voto popular</div>
-            <a id="vote-btn" href="LINK_FORM_AQUI" target="_blank" style="
+            <a id="vote-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSf8eMz2sGC5n4h3K4BNQhnLQPHi-3tO6GMs2nVQjZ2-tzGIUA/viewform" target="_blank" style="
               margin-top: 4px;
               background: var(--yellow);
               color: var(--dark);
@@ -1985,6 +2115,11 @@
 
   <!-- GANADOR -->
   <section id="ganador">
+    <div class="ganador-lock">
+      <div class="ganador-lock-icon">🔒</div>
+      <div class="ganador-lock-text">A revelar próximamente</div>
+      <div class="ganador-lock-sub">Los ganadores se anuncian hoy</div>
+    </div>
     <div class="container">
       <div class="section-header">
         <span class="section-tag">🏆 Premio</span>
@@ -1994,39 +2129,78 @@
       <div class="podium">
 
         <!-- 2° lugar — izquierda -->
-        <div class="podium-slot podium-second">
+        <div class="podium-slot podium-second" id="slot-second">
           <div class="podium-flag">
             <div class="flag-fabric">
-              <div class="flag-text-equipo">Equipo</div>
-              <div class="flag-text-num">???</div>
+              <div class="flag-text-equipo">Equipo 4</div>
+              <div class="flag-text-num">TrIAge</div>
             </div>
             <div class="flag-pole"></div>
           </div>
-          <div class="podium-step">🥈</div>
+          <div class="podium-step">
+            🥈
+            <div class="reveal-hint">👆 presioná para revelar</div>
+          </div>
+          <div class="podium-team">
+            <div class="podium-team-label">TrIAge</div>
+            <div class="podium-team-members">
+              <div class="podium-member"><div class="podium-avatar avatar-ari"></div><div class="podium-member-name">Ari<br>Romero</div></div>
+              <div class="podium-member"><div class="podium-avatar avatar-car"></div><div class="podium-member-name">Car<br>Espinola</div></div>
+              <div class="podium-member"><div class="podium-avatar avatar-nachito"></div><div class="podium-member-name">Nachito<br>Brusati</div></div>
+              <div class="podium-member"><div class="podium-avatar avatar-mcant"></div><div class="podium-member-name">Maxi<br>Cantarell</div></div>
+              <div class="podium-member"><div class="podium-avatar avatar-lu"></div><div class="podium-member-name">Lu<br>Miranda</div></div>
+            </div>
+          </div>
         </div>
 
         <!-- 1° lugar — centro, más alto -->
-        <div class="podium-slot podium-first">
+        <div class="podium-slot podium-first" id="slot-first">
           <div class="podium-flag">
             <div class="flag-fabric">
-              <div class="flag-text-equipo">Equipo</div>
-              <div class="flag-text-num">???</div>
+              <div class="flag-text-equipo">Equipo 3</div>
+              <div class="flag-text-num">Tesseract</div>
             </div>
             <div class="flag-pole"></div>
           </div>
-          <div class="podium-step">🥇</div>
+          <div class="podium-step">
+            🥇
+            <div class="reveal-hint">👆 presioná para revelar</div>
+          </div>
+          <div class="podium-team">
+            <div class="podium-team-label">Tesseract</div>
+            <div class="podium-team-members">
+              <div class="podium-member"><div class="podium-avatar avatar-martin"></div><div class="podium-member-name">Martin<br>Baggio</div></div>
+              <div class="podium-member"><div class="podium-avatar avatar-leti"></div><div class="podium-member-name">Leti<br>Vilariño</div></div>
+              <div class="podium-member"><div class="podium-avatar avatar-fede"></div><div class="podium-member-name">Fede<br>Colombo</div></div>
+              <div class="podium-member"><div class="podium-avatar avatar-tanque"></div><div class="podium-member-name">Tanque<br>Silva</div></div>
+              <div class="podium-member"><div class="podium-avatar avatar-sancho"></div><div class="podium-member-name">Sancho<br>Rodriguez</div></div>
+            </div>
+          </div>
         </div>
 
         <!-- 3° lugar — derecha, más bajo -->
-        <div class="podium-slot podium-third">
+        <div class="podium-slot podium-third" id="slot-third">
           <div class="podium-flag">
             <div class="flag-fabric">
-              <div class="flag-text-equipo">Equipo</div>
-              <div class="flag-text-num">???</div>
+              <div class="flag-text-equipo">Equipo 8</div>
+              <div class="flag-text-num">Atalaya</div>
             </div>
             <div class="flag-pole"></div>
           </div>
-          <div class="podium-step">🥉</div>
+          <div class="podium-step">
+            🥉
+            <div class="reveal-hint">👆 presioná para revelar</div>
+          </div>
+          <div class="podium-team">
+            <div class="podium-team-label">Atalaya</div>
+            <div class="podium-team-members">
+              <div class="podium-member"><div class="podium-avatar avatar-agus"></div><div class="podium-member-name">Agus<br>Pons</div></div>
+              <div class="podium-member"><div class="podium-avatar avatar-mmengot"></div><div class="podium-member-name">Mati<br>Mengot</div></div>
+              <div class="podium-member"><div class="podium-avatar avatar-rodri"></div><div class="podium-member-name">Rodri<br>Marquez</div></div>
+              <div class="podium-member"><div class="podium-avatar avatar-flocurb"></div><div class="podium-member-name">Flo<br>Curbelo</div></div>
+              <div class="podium-member"><div class="podium-avatar avatar-andy"></div><div class="podium-member-name">Andy<br>Santucci</div></div>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -2087,6 +2261,38 @@
           audio.pause();
           audio.currentTime = 0;
         }
+      });
+    });
+
+    // ── Podium reveal (click individual en cada puesto) ──
+    const podiumSlots = [
+      { slotId: 'slot-third',  audioId: 'sevenarmy-audio' },
+      { slotId: 'slot-second', audioId: 'piratas-audio'   },
+      { slotId: 'slot-first',  audioId: 'nba-audio'       },
+    ];
+    let currentPodiumAudio = null;
+
+    function resetPodium() {
+      podiumSlots.forEach(({ slotId }) => document.getElementById(slotId).classList.remove('revealed'));
+      if (currentPodiumAudio) { currentPodiumAudio.pause(); currentPodiumAudio.currentTime = 0; }
+      currentPodiumAudio = null;
+    }
+
+    podiumSlots.forEach(({ slotId, audioId }) => {
+      const slot = document.getElementById(slotId);
+      slot.addEventListener('click', () => {
+        // Si ya está revelado el 1°: reset completo
+        if (slot.classList.contains('revealed')) {
+          if (slotId === 'slot-first') resetPodium();
+          return;
+        }
+        slot.classList.add('revealed');
+        // Para tarjetas de equipos y audio podio anterior
+        teamMap.forEach(({ card, audio }) => { card.classList.remove('flipped'); audio.pause(); audio.currentTime = 0; });
+        if (currentPodiumAudio) { currentPodiumAudio.pause(); currentPodiumAudio.currentTime = 0; }
+        currentPodiumAudio = document.getElementById(audioId);
+        currentPodiumAudio.currentTime = 0;
+        currentPodiumAudio.play().catch(() => {});
       });
     });
 
